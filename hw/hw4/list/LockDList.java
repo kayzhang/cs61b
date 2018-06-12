@@ -6,12 +6,11 @@ public class LockDList extends DList {
     }
 
     public void lockNode(DListNode node) {
-        LockDListNode lockNode = (LockDListNode) node;
-        lockNode.isLocked = true;
+        ((LockDListNode) node).isLocked = true;
     }
 
     public void remove(DListNode node) {
         LockDListNode lockNode = (LockDListNode) node;
-        if (!lockNode.isLocked) super.remove(node);
+        if (!((LockDListNode) node).isLocked) super.remove(node);
     }
 }
