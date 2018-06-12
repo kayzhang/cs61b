@@ -1,0 +1,22 @@
+Due to package protected, application out of the list package cannot violate
+the invariant related to the DListNode. But the following 3 methods have some
+flaws:
+
+public void insertAfter(Object item, DListNode node) {}
+public void insertBefore(Object item, DListNode node) {}
+public void remove(DListNode node) {}
+
+The flaw is that these method don't check if the node argument is within the
+DList object being called on. They just operate on the node, and then change the
+size of the DList object being called on.
+
+For example,
+
+DList list1 = new DList();
+DList list2 = new DList();
+list1.insertAfter(3, list2.front());
+
+The code will insert a node with item 3 after list2.front(). So it's the list2
+that gets inserted, but it's list1 whose size gets changed. Therefore, the
+size invariant gets violated.
+
